@@ -5,3 +5,4 @@ staticfiles
 *.crt
 *.csr
 *.key
+.DS_Store
