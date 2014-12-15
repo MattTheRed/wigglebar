@@ -1,0 +1,88 @@
+{% extends "loggedin/base.html"%}
+{% block content%}
+<form method="POST" action="#" enctype="multipart/form-data">
+<h3 style="display:inline-block; padding-top:15px; padding-bottom: 15px; padding-left:10px;">WiggleBar Dashboard</h3>
+
+    {% csrf_token %}
+    {{ form.errors}}
+    <a href="#" class="button" style="float:right; margin-top:15px;" ng-click="showBar();">Preview Bar</a>
+    <div class="switch large round" style="width:100px; display:inline-block; float:right; margin-top:15px; margin-right:15px;">
+
+    <input {% if toggle_bar_form.is_enabled.value == False %}checked="checked"{%endif%} id="z" name="is_enabled" type="radio" value="False" tabindex="0" onclick="form.submit();">
+    <label for="z">Off</label>
+
+    <input {% if toggle_bar_form.is_enabled.value == True %}checked="checked"{%endif%} id="z1" name="is_enabled" type="radio" value="True" tabindex="0" onclick="form.submit();">
+    <label for="z1">On</label>
+        <span></span>
+    </div>
+    <input id="toggle-form-submit" type="submit" class="button large green save-bar" value="Save" tabindex="0" style="display:none">
+
+
+</form>
+
+    <div class="row">
+        <div class="small-12 columns" style="padding:0; margin:0;">
+            <div class="builder-section-heading" ng-click="toggleBuilder()">
+                <div class="builder-section-arrow" ng-show="showEmbed">&#9660;</div><div class="builder-section-arrow" ng-hide="showEmbed">&#9658;</div>
+                <h5> Add the WiggleBar code to your Site</h5>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="showEmbed" style="padding:0; margin:0;">
+        <div class="small-12 columns builder-section-content">
+           <p>Copy & paste the code below on to your website.</p>
+<textarea class="embed-code">
+&lt;script src="{{static_url}}js/notifybar/viewer/bar.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" &gt;nb.init({{ bar_id }});&lt;/script&gt;
+</textarea>
+        </div>
+    </div>
+
+     <div class="row">
+        <div class="small-12 columns" style="padding:0; margin:0;">
+            <div class="builder-section-heading" ng-click="toggleBuilder()">
+                <div class="builder-section-arrow" ng-show="showEdit">&#9660;</div><div class="builder-section-arrow" ng-hide="showEdit">&#9658;</div>
+                <h5>Edit your WiggleBar</h5>
+            </div>
+        </div>
+    </div>
+     <div class="row" ng-show="showEdit" style="padding:0; margin:0;">
+            <div class="small-12 columns builder-section-content" style="padding:0; margin:0;">
+
+            {% include "loggedin/_barform.html" %}
+            </div>
+    </div>
+    <div class="row" style="padding:0; margin:0;">
+            <div class="small-12 columns builder-section-content" style="padding:0; margin:0;">
+                &nbsp;
+            </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}
+
+{% block form_title %}{% endblock %}
+{% block extra_javascript %}
+    var expandEmbed = {% if request.GET.expandembed %}true{% else %}false{% endif %};
+    var initialColors = {
+            "background": "{{ form.background_color.value |escapejs }}",
+            "icon" : "#ffffff",
+            "text" : "{{ form.message_color.value |escapejs }}",
+            "buttonBackground" : "{{ form.button_background_color.value |escapejs }}",
+            "buttonText" : "{{ form.button_text_color.value|escapejs }}",
+            "iconBackground": "{{ form.button_background_color.value|escapejs }}",
+        }
+    var initialContent = {
+        "messageText": "{{ form.message.value|escapejs }}",
+        "buttonText": "{{ form.button_text.value|escapejs }}",
+        "buttonLink": "{{ form.button_link.value|escapejs }}",
+        "iconUrl": "{{ form.icon_url.value|escapejs }}"
+    };
+    //nb.init(0);
+{% endblock %}
+
+

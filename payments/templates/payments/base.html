@@ -1,0 +1,34 @@
+{% extends "registration/base.html"%}
+{% load staticfiles %}
+{% block extra_header_javascript %}
+	<script type='text/javascript' src='http://code.jquery.com/jquery-1.8.2.js'></script>
+	<script src="//checkout.stripe.com/v2/checkout.js"></script>
+	<script src="{% static "js/notifybar/eldarion-ajax.min.js" %}"></script>
+	<script>
+    $(function() {
+        $('body').on("click", '.change-card, .subscribe-form button[type=submit]', function(e) {
+          e.preventDefault();
+          var $form = $(this).closest("form"),
+              token = function(res) {
+                $form.find("input[name=stripe_token]").val(res.id);
+                $form.trigger("submit");
+              };
+
+          StripeCheckout.open({
+            key:         $form.data("stripe-key"),
+            name:        'Add WiggleBar to your site $8.95/month',
+            panelLabel:  'Sign Up Now',
+            token:       token
+          });
+
+          return false;
+        });
+    });
+	</script>
+{% endblock %}
+
+{% block content %}
+<br>
+	{% block body %}
+	{% endblock %}
+{% endblock %}

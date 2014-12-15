@@ -1,0 +1,25 @@
+{% verbatim %}
+<div class="icon-picker-container">
+	<div class="icon-picker-initial" ng-click="togglePicker()">
+		<span class="icon-preview" style="background-color:[[colors.background]];">
+			<img src="[[choice]]">
+		</span>
+
+		<span class="down-arrow">&#x25BE;</span></div>
+	<div class="icon-choice-list" ng-show="pickerVisible">
+
+		<span class="icon-upload-custom" id="icon-upload-custom">
+			<span ng-hide="uploadVisible" ng-click="toggleUpload()" class="upload-toggle">Upload Custom Icon</span>
+			<input id="id_icon" name="icon" ng-show="uploadVisible" type="file">
+		</span>
+		<div class="icon-choice-scrollbox">
+			<div ng-repeat="choice in choices" class="icon-choice">
+				<span class="icon-preview-small" style="background-color:[[colors.background]];" ng-click="chooseIcon(choice)">
+					<img src="[[choice]]">
+				</span>
+			</div>
+		</div>
+
+	</div>
+</div>
+{% endverbatim %}

@@ -1,0 +1,14 @@
+{% verbatim %}
+<div class="palette-picker-container">
+	<div class="palette-picker-initial" ng-click="togglePicker()">Choose Theme<span class="down-arrow">&#x25BE;</span></div>
+	<ul class="palette-choice-list" ng-show="pickerVisible">
+		<li ng-repeat="choice in choices" class="palette-choice" ng-click="choosePalette(choice)">
+			<span class="color-preview" style="background-color:[[choice.background]];"></span>
+			<span class="color-preview" style="background-color:[[choice.text]];"></span>
+			<span class="color-preview" style="background-color:[[choice.buttonBackground]];"></span>
+			<span class="color-preview" style="background-color:[[choice.buttonText]];"></span>
+		</li>
+	</ul>
+</div>
+
+{% endverbatim %}

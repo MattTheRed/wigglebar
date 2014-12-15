@@ -1,0 +1,23 @@
+{% extends "payments/base.html" %}
+{% load url from future %}
+
+{% block title %}Account{% endblock title %}
+
+{% block body %}
+    {% with request.user.customer.current_subscription as subscription %}
+        {% if not subscription or subscription.status != 'active'  %}
+            {% include "payments/_subscription_status.html" %}
+            {% include "payments/_subscribe_form.html" %}
+        {% else %}
+            <h2>Account</h2>
+            <p>You currently already have an active subscription, which will automatically renew in <strong>{{ subscription.current_period_end|timeuntil }}</strong></p>
+            <ul style="padding-left:30px;">
+            	<li><a href="{% url 'payments_history' %}">View payment history</a></li>
+            	<li><a href="{% url 'payments_change_card' %}">Change your card</a></li>
+            	<li><a href="{% url 'payments_cancel' %}">Cancel your subscription</a></li>
+            	<!--<a href="{% url 'payments_change_plan' %}">change your subscription</a>-->
+            </ul>
+
+        {% endif %}
+    {% endwith %}
+{% endblock %}

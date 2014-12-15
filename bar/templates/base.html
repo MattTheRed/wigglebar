@@ -1,0 +1,45 @@
+{% load staticfiles %}
+{% load i18n %}
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]>               <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>WiggleBar</title>
+    <link rel="stylesheet" href="{% static "css/foundation/foundation.css" %}">
+    <link rel="stylesheet" href="{% static "css/notifybar/builder/builder.css" %}">
+    <link rel="stylesheet" href="{% static "css/notifybar/builder/registration.css" %}">
+    <script src="{% static "js/foundation/vendor/custom.modernizr.js"%}"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+    {% block header %}
+        {% if user.is_authenticated %}
+        {% trans "Logged in" %}: {{ user.username }}
+        (<a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a> |
+        <a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>)
+        {% else %}
+        {% endif %}
+    {% endblock %}
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div id="footer">
+        {% block footer %}
+
+        {% endblock %}
+    </div>
+<script>
+{% block extra_javascript %}
+{% endblock %}
+</script>
+</body>
+</html>

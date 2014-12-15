@@ -1,0 +1,9 @@
+{% extends "payments/base.html" %}
+
+{% block title %}Cancel Subscription{% endblock title %}
+{{ request.user.customer.current_subscription.status }}
+{{ request.user.customer.current_subscription }}
+{{ request.user }}
+{% block body %}
+    {% include "payments/_cancel_form.html" %}
+{% endblock %}

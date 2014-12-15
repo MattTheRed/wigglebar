@@ -1,0 +1,58 @@
+<form method="POST" action="#" enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ form.errors}}
+
+		<div class="small-12 columns bar-builder-top">
+			{% if show_preview %}
+			<a class="button" style="float:right; margin-top:15px;" ng-click="showBar();">Preview Bar</a>
+			{% endif %}
+			<h2>{{ form_title }}</h2>
+
+			{{ form.is_enabled }}
+
+				{{ form.message.errors }}
+				{{ form.message.label_tag}}
+				{{ form.message }}
+			<div style="clear:both;"></div>
+			<div style="float:left; width: 48%;">
+				{{ form.button_text.errors }}
+				{{ form.button_text.label_tag}}
+				{{ form.button_text }}
+			</div>
+			<div style="float:right; width:48%;">
+				{{ form.button_link.errors }}
+				{{ form.button_link.label_tag}}
+				{{ form.button_link }}
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<div class="row">
+			<div class="small-12 columns" style="padding:0; margin:0;">
+				<div class="look-and-feel">
+					{{ form.icon.errors}}
+					{{ form.icon_url}}
+					{{ form.icon }}
+					<div style="width: 480px; display: inline-block;">
+						<div class="color-preview-box" style="display:inline-block; float:left">
+							{{ form.background_color.errors }}
+							{{ form.message_color.errors }}
+							{{ form.button_background_color.errors }}
+							{{ form.button_text_color.errors }}
+							{{ form.background_color }}
+							{{ form.message_color }}
+							{{ form.button_background_color }}
+							{{ form.button_text_color }}
+						</div>
+						<palette-picker choices="colorChoices" choice="colors" class="palette-picker"></palette-picker>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="padding:0; margin:0;">
+			<div class="small-4 columns small-offset-8" style="padding-top:20px;text-align:right;">
+				<input type="submit" class="button large green save-bar" value="{{ form_save }}">
+			</div>
+		</div>
+
+
+</form>

@@ -1,0 +1,16 @@
+{% extends "registration/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h1>Sign Up </h1>
+<form method="post" action=".">
+	{% csrf_token %}
+	{{ form.as_p }}
+	{% if not form.next.value %}
+		<input type="hidden" value="{{request.GET.next}}" name="next">
+	{% endif %}
+	<input type="submit" value="Create Account" class="button large registration-button"/>
+
+	Already have an account? <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a>
+</form>
+{% endblock %}

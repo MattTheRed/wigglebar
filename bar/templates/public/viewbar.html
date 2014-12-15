@@ -1,0 +1,28 @@
+var initialColors = {
+        "background": "{{ bar.background_color|escapejs }}",
+        "icon" : "#ffffff",
+        "text" : "{{ bar.message_color|escapejs }}",
+        "buttonBackground" : "{{ bar.button_background_color |escapejs }}",
+        "buttonText" : "{{ bar.button_text_color|escapejs }}",
+        "iconBackground": "{{ bar.button_background_color|escapejs }}",
+    }
+var initialContent = {
+    "messageText": "{{ bar.message|escapejs }}",
+    "buttonText": "{{ bar.button_text|escapejs }}",
+    "buttonLink": "{{ bar.button_link|escapejs }}",
+    "iconUrl": "{{bar.get_icon}}"
+};
+
+{% if bar.is_enabled %}
+nb.setColorsAndContent(false, initialColors, initialContent);
+{% endif %}
+{% if request.user.customer.current_subscription.status == "active" and bar.is_enabled %}
+{% elif request.user.customer.current_subscription.status != "active" and request.user.is_authenticated %}
+{% else %}
+/*
+initialContent["messageText"] = "Doh! Your WiggleBar hasn't been activated yet (your visitors won't see this message)";
+initialContent["buttonText"] = "Upgrade Now";
+nb.setColorsAndContent(false, initialColors, initialContent); */
+
+
+{% endif %}
